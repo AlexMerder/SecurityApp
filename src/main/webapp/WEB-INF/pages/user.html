@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+
+<h1>USER PAGE</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="LOGOUT">
+</form>
+<br>
+<div th:object="${user}" class="User">
+    ID: <p th:utext="${user.id}"></p>
+    NAME: <p th:utext="${user.firstName}"></p>
+    LAST NAME: <p th:utext="${user.lastName}"></p>
+    EMAIL: <p th:utext="${user.email}"></p>
+</div>
+<br>
+
+<div sec:authorize="hasRole('ADMIN')">
+    <form method="get" th:action="@{/admin}">
+        <input type="submit" value="ADMIN PAGE">
+    </form>
+</div>
+
+</body>
+</html>

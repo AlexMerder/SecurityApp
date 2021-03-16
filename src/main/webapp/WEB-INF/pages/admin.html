@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="LOGOUT">
+</form>
+<br>
+<div th:each=" user : ${users}">
+    <p>ID:  <tr th:text="${user.id}"></tr></p>
+    <p>NAME:   <tr th:text="${user.firstName}"></tr></p>
+    <p>LAST NAME:   <tr th:text="${user.lastName}"></tr></p>
+    <p> EMAIL:  <tr th:text="${user.email}"></tr></p>
+    <div th:each=" role : ${user.roles}">
+        Role: <tr th:text="${role.nameRole}"></tr>
+    </div>
+    <br>
+
+    <form method="get" th:action= "@{/admin/update}" >
+        <input type="number" hidden name="id" th:value="${user.id}" />
+        <p><input type="submit" value="EDIT"></p>
+    </form>
+
+    <form method="post" th:action= "@{/admin/delete}" >
+        <input type="number" hidden name="id" th:value="${user.id}" />
+        <p><input type="submit" value="DELETE"></p>
+    </form>
+    <hr>
+</div>
+
+<form th:name="user" method="post" th:action= "@{/admin/add}" >
+    <label>NAME: <input type="text" name="firstName"></label><br><br>
+    <label>LAST NAME: <input type="text" name="lastName"></label><br><br>
+    <label>EMAIL: <input type="text" name="email"></label><br><br>
+    <label>PASSWORD: <input type="text" name="password"></label><br><br>
+
+    <label>
+        <select th:name="role" multiple="multiple" th:size="${roles.size()}" required>
+            <option th:each="role : ${roles}"
+                    th:value="${role.id}"
+                    th:text="${role.nameRole}">Wireframe</option>
+        </select>
+    </label>
+    <input type="submit" value="ADD USER"><br>
+</form>
+<hr>
+<form method="get" th:action="@{/user}">
+    <input type="submit" value="USER PAGE">
+
+</form>
+
+
+</body>
+</html>
