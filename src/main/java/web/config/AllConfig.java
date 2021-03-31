@@ -46,7 +46,6 @@ public class AllConfig implements WebMvcConfigurer {
 
     @Autowired
     private Environment environment;
-
     private final Logger logger = LoggerFactory.getLogger(AllConfig.class);
 
     @Bean
